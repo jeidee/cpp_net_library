@@ -9,7 +9,7 @@ network_client::network_client(iprotocol_pt protocol, bool use_ssl)
 , use_ssl_(use_ssl) {
 }
 
-bool network_client::connect(std::string& ip, int port) {
+bool network_client::connect(const char* ip, int port) {
     if (connected_) {
         last_error_ = boost::system::errc::make_error_code(boost::system::errc::already_connected);
         return false;
@@ -41,14 +41,12 @@ bool network_client::connect(std::string& ip, int port) {
     
     
     auto endpoint = boost::asio::ip::tcp::endpoint(
-                                                   boost::asio::ip::address::from_string(ip.c_str()), port);
-    
+                                                   boost::asio::ip::address::from_string(ip), port);
     
     ssl_socket_->next_layer().async_connect(endpoint, strand_->wrap(boost::bind(&network_client::handle_connect, this, boost::asio::placeholders::error)));
     
-    
     t_ = boost::thread(boost::bind(static_cast<size_t (boost::asio::io_service::*)()>(&boost::asio::io_service::run), io_service_));
-    
+   
     return true;
 }
 
@@ -132,6 +130,7 @@ void network_client::handle_connect(const boost::system::error_code& error) {
         return;
     }
     
+   
     if (use_ssl_) {
         ssl_socket_->async_handshake(boost::asio::ssl::stream_base::client,
                                      boost::bind(&network_client::handle_handshake, this, boost::asio::placeholders::error));
@@ -179,8 +178,14 @@ void network_client::post_read() {
                                                           boost::asio::placeholders::error,
                                                           boost::asio::placeholders::bytes_transferred)));
     } else {
-        boost::asio::async_read(ssl_socket_->next_layer(),
-                                boost::asio::buffer(receive_buffer_),
+//        boost::asio::async_read(ssl_socket_->next_layer(),
+//                                boost::asio::buffer(receive_buffer_),
+//                                strand_->wrap(boost::bind(
+//                                                          &network_client::handle_read,
+//                                                          this,
+//                                                          boost::asio::placeholders::error,
+//                                                          boost::asio::placeholders::bytes_transferred)));
+        ssl_socket_->next_layer().async_read_some(boost::asio::buffer(receive_buffer_),
                                 strand_->wrap(boost::bind(
                                                           &network_client::handle_read,
                                                           this,

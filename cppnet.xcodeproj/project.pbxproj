@@ -14,6 +14,8 @@
 		603E96491CB79AE5001AA215 /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 603E96481CB79AE5001AA215 /* libssl.a */; };
 		603E964E1CB79C35001AA215 /* libboost_system-mt.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 603E964D1CB79C35001AA215 /* libboost_system-mt.a */; };
 		603E96511CB79C7E001AA215 /* libboost_thread-mt.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 603E964F1CB79C64001AA215 /* libboost_thread-mt.dylib */; };
+		608B65A61CBCD09500A10154 /* xml_parser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 608B65A41CBCD09500A10154 /* xml_parser.cpp */; };
+		608B65A81CBCDC6500A10154 /* libexpat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 608B65A71CBCDC6500A10154 /* libexpat.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -300,6 +302,12 @@
 		603E96481CB79AE5001AA215 /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libssl.a; path = ../../../../opt/local/lib/libssl.a; sourceTree = "<group>"; };
 		603E964D1CB79C35001AA215 /* libboost_system-mt.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libboost_system-mt.a"; path = "../../../../opt/local/lib/libboost_system-mt.a"; sourceTree = "<group>"; };
 		603E964F1CB79C64001AA215 /* libboost_thread-mt.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libboost_thread-mt.dylib"; path = "../../../../opt/local/lib/libboost_thread-mt.dylib"; sourceTree = "<group>"; };
+		608B65A41CBCD09500A10154 /* xml_parser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = xml_parser.cpp; path = src/xml_parser.cpp; sourceTree = "<group>"; };
+		608B65A51CBCD09500A10154 /* xml_parser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = xml_parser.h; path = src/xml_parser.h; sourceTree = "<group>"; };
+		608B65A71CBCDC6500A10154 /* libexpat.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libexpat.a; path = ../../../../usr/local/Cellar/expat/2.1.0_1/lib/libexpat.a; sourceTree = "<group>"; };
+		608B65AA1CC4B91B00A10154 /* concurrent_queue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = concurrent_queue.h; path = src/concurrent_queue.h; sourceTree = "<group>"; };
+		608B65AD1CC4B93600A10154 /* concurrent_stack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = concurrent_stack.h; path = src/concurrent_stack.h; sourceTree = "<group>"; };
+		608B65B01CC4B94E00A10154 /* auto_lock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = auto_lock.h; path = src/auto_lock.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -307,6 +315,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				608B65A81CBCDC6500A10154 /* libexpat.a in Frameworks */,
 				603E96511CB79C7E001AA215 /* libboost_thread-mt.dylib in Frameworks */,
 				603E964E1CB79C35001AA215 /* libboost_system-mt.a in Frameworks */,
 				603E96491CB79AE5001AA215 /* libssl.a in Frameworks */,
@@ -321,10 +330,15 @@
 			isa = PBXGroup;
 			children = (
 				602C1A8E1CB8C77A003A1140 /* main.cpp */,
+				608B65AD1CC4B93600A10154 /* concurrent_stack.h */,
 				602C1A8F1CB8C77A003A1140 /* network_client.cpp */,
+				608B65B01CC4B94E00A10154 /* auto_lock.h */,
 				602C1A901CB8C77A003A1140 /* network_client.h */,
 				602C1A911CB8C77A003A1140 /* openssl_cert.cpp */,
 				602C1A921CB8C77A003A1140 /* openssl_cert.h */,
+				608B65A41CBCD09500A10154 /* xml_parser.cpp */,
+				608B65A51CBCD09500A10154 /* xml_parser.h */,
+				608B65AA1CC4B91B00A10154 /* concurrent_queue.h */,
 			);
 			name = src;
 			sourceTree = "<group>";
@@ -332,6 +346,7 @@
 		6039E3A41CB76EC500DF0328 = {
 			isa = PBXGroup;
 			children = (
+				608B65A71CBCDC6500A10154 /* libexpat.a */,
 				602C1A8D1CB8C6D8003A1140 /* src */,
 				603E964F1CB79C64001AA215 /* libboost_thread-mt.dylib */,
 				603E964D1CB79C35001AA215 /* libboost_system-mt.a */,
@@ -795,6 +810,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				608B65A61CBCD09500A10154 /* xml_parser.cpp in Sources */,
 				602C1A931CB8C77A003A1140 /* main.cpp in Sources */,
 				602C1A941CB8C77A003A1140 /* network_client.cpp in Sources */,
 				602C1A951CB8C77A003A1140 /* openssl_cert.cpp in Sources */,
@@ -888,13 +904,17 @@
 		6039E3B51CB76EC600DF0328 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_PREPROCESSOR_DEFINITIONS = "DEBUG=1";
 				HEADER_SEARCH_PATHS = (
 					/usr/local/include,
 					/opt/local/include,
+					/usr/local/opt/expat/include,
 				);
 				LIBRARY_SEARCH_PATHS = (
 					/usr/local/lib,
 					/opt/local/lib,
+					/usr/local/opt/expat/lib,
+					/usr/local/Cellar/expat/2.1.0_1/lib,
 				);
 				PRODUCT_NAME = cppnet;
 			};
@@ -903,13 +923,17 @@
 		6039E3B61CB76EC600DF0328 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_PREPROCESSOR_DEFINITIONS = "";
 				HEADER_SEARCH_PATHS = (
 					/usr/local/include,
 					/opt/local/include,
+					/usr/local/opt/expat/include,
 				);
 				LIBRARY_SEARCH_PATHS = (
 					/usr/local/lib,
 					/opt/local/lib,
+					/usr/local/opt/expat/lib,
+					/usr/local/Cellar/expat/2.1.0_1/lib,
 				);
 				PRODUCT_NAME = cppnet;
 			};

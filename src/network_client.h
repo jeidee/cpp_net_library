@@ -8,16 +8,17 @@
 #include <boost/container/vector.hpp>
 #include <boost/array.hpp>
 #include <boost/atomic.hpp>
-#include <boost/lockfree/queue.hpp>
 
 #define MAX_RECV_BUFF_LEN	8092
+
+class network_client;
 
 class iprotocol {
 public:
     virtual void handle_read(char* data, size_t size) = 0;
 };
 
-typedef boost::shared_ptr<iprotocol> iprotocol_pt;
+typedef iprotocol* iprotocol_pt;
 
 typedef boost::asio::ip::tcp::endpoint asio_tcp_endpoint_t;
 
@@ -35,9 +36,10 @@ typedef boost::asio::ssl::context asio_ssl_context_t;
 class network_client {
     
 public:
-    network_client(boost::shared_ptr<iprotocol> protocol, bool use_ssl = false);
+    network_client(iprotocol_pt protocol, bool use_ssl = false);
+    virtual ~network_client() {}
     
-    bool connect(std::string& ip, int port);
+    bool connect(const char* ip, int port);
     bool wait_connected(int timeout_millisec);
     void close();
     bool write(char* data, size_t size);
